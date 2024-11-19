@@ -5,15 +5,65 @@
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %}</title>
 	<link rel="stylesheet" href="{% static "css/base.css" %}">
+	<link href="https://cdn.jsdelivr.net/npm/beercss@3.7.12/dist/cdn/beer.min.css" rel="stylesheet">
+
+	<script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.7.12/dist/cdn/beer.min.js"></script>
+
+	<script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"></script>
 </head>
 <body>
 	<div id="header">
-		<span class="logo">Bookmarks</span>
+		{% if request.user.is_authenticated %}
+			<nav class="left drawer l padding">
+				<header>
+					<nav>
+						<i>bookmark</i>
+						<h6>Bookmarks</h6>
+					</nav>
+				</header>
+				<a {% if section == "dashboard" %}c
+					class="primary"
+				{% endif %} >
+					<i>dashboard</i>
+					<span>My Dashboard</span>
+				</a>
+				<a {% if section == "images" %}c
+				   class="primary"
+				   {% endif %} >
+					<i>image</i>
+					<span>Images</span>
+				</a>
+				<a {% if section == "people" %}c
+				   class="primary"
+				   {% endif %} >
+					<i>groups</i>
+					<span>People</span>
+				</a>
+			</nav>
+		{% endif %}
+		<span class="user">
+			<nav class="right-align padding">
+				{% if request.user.is_authenticated %}
+					<p>Hello {{ request.user.first_name|default:request.user.username }}</p>
+					<form action="{% url 'logout' %}" method="post">
+						<button class="chip fill medium-elevate" type="submit">Logout <i>logout</i></button>
+						{% csrf_token %}
+					</form>
+				{% else %}
+					<form action="{% url 'login' %}" method="get">
+						<button class="chip fill medium-elevate" type="submit">Log in <i>login</i></button>
+						{% csrf_token %}
+					</form>
+				{% endif %}
+			</nav>
+		</span>
 	</div>
-	<div id="content">
-		{% block content %}
-			
-		{% endblock %}
-	</div>
+	<main class="responsive s6">
+		<div id="content" class="responsive">
+				{% block content %}
+
+				{% endblock %}
+		</div>
+	</main>
 </body>
 </html>

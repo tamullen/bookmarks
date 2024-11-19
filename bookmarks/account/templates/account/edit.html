@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Edit your account
+{% endblock %}
+
+{% block content %}
+	<article class="s6 padding medium-elevate">
+		<h1>Edit Your Account</h1>
+		<p>You can edit your account using the following form:</p>
+		<form method="post" enctype="multipart/form-data">
+			{% for field in user_form %}
+				<div class="field border">
+					{{ field.errors }}
+					{{ field.label_tag }}: {{ field }}
+				</div>
+			{% endfor %}
+			{% for field in profile_form %}
+				<div class="field border">
+					{{ field.errors }}
+					{% if field.field.widget.input_type == "file" %}
+						<label for="id_photo">Photo:</label>
+						<button class="circle">
+						<i>attach_file</i>
+						{{ field }}
+						</button>
+					{% else %}
+						{{ field.label_tag }} {{ field }}
+					{% endif %}
+
+				</div>
+			{% endfor %}
+			{% csrf_token %}
+			<button><span>Save Changes</span></button>
+
+		</form>
+	</article>
+{% endblock %}
