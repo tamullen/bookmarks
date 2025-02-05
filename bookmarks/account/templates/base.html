@@ -59,6 +59,14 @@
 		</span>
 	</div>
 	<main class="responsive s6">
+		{% if messages %}
+				<h5>Messages</h5>
+				<div>
+					{% for message in messages %}
+						{{ message|safe }}
+					{% endfor %}
+				</div>
+		{% endif %}
 		<div id="content" class="responsive">
 				{% block content %}
 
