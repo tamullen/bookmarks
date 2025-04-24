@@ -4,4 +4,4 @@ venv/
 venv_desktop/
 *.xml
 *.iml
-*.sqlite3
+*.sqlite3s
