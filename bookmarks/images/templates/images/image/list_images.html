@@ -1,0 +1,27 @@
+{% load thumbnail %}
+<div class="grid">
+	{% for image in images %}
+		<div class="image s6">
+			<article class="s6">
+				<div class="grid">
+					<div class="s6 m6 l3">
+						<a href="{{ image.get_absolute_url }}">
+							{% thumbnail image.image 300x300 crop="smart" as im %}
+							<a href="{{ image.get_absolute_url }}">
+								<img class="responsive" src="{{  im.url }}" alt="">
+							</a>
+						</a>
+					</div>
+					<div class="s6 m6 l9">
+						<div class="info padding">
+							<a href="{{  image.get_absolute_url }}" class="title">
+								{{ image.title }}
+								{{ image.users_like.count }} like{{ image.users_like.count|pluralize }}
+							</a>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	{% endfor %}
+</div>

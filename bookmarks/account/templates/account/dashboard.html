@@ -6,7 +6,14 @@
 {% block content %}
 	<article class="s6 medium-elevate">
 		<h1>Dashboard</h1>
-		<p>Welcome to your dashboard. You can <a class="primary-text" href="{% url 'edit' %}">edit your profile</a>
+		{% with request.user.images_created.count as total_images_created %}
+			<p>Welcome to your dashboard. You have bookmarked {{  total_images_created }} image
+				{{ total_images_created|pluralize }}</p>
+		{% endwith %}
+		<p>Drag the following button to your bookmarks toolbar to bookmark images from other websites ->
+			<a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">bookmark it</a>
+		</p>
+		<p>You can <a class="primary-text" href="{% url 'edit' %}">edit your profile</a>
 			or <a class="primary-text" href="{% url 'password_change' %}">change your password</a>.</p>
 	</article>
 {% endblock %}

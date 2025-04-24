@@ -12,7 +12,6 @@
 	<script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"></script>
 </head>
 <body>
-	<div id="header">
 		{% if request.user.is_authenticated %}
 			<nav class="left drawer l padding">
 				<header>
@@ -21,19 +20,19 @@
 						<h6>Bookmarks</h6>
 					</nav>
 				</header>
-				<a {% if section == "dashboard" %}c
+				<a href="{% url "dashboard" %}" {% if section == "dashboard" %}
 					class="primary"
 				{% endif %} >
 					<i>dashboard</i>
 					<span>My Dashboard</span>
 				</a>
-				<a {% if section == "images" %}c
+				<a href="{% url "images:list" %}" {% if section == "images" %}
 				   class="primary"
 				   {% endif %} >
 					<i>image</i>
-					<span>Images</span>
+					Images
 				</a>
-				<a {% if section == "people" %}c
+				<a {% if section == "people" %}
 				   class="primary"
 				   {% endif %} >
 					<i>groups</i>
@@ -73,5 +72,14 @@
 				{% endblock %}
 		</div>
 	</main>
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+<script>
+	const csrftoken = Cookies.get('csrftoken');
+	document.addEventListener('DOMContentLoaded', (event) => {
+        {% block domready %}
+
+		{% endblock %}
+    })
+</script>
 </body>
 </html>
