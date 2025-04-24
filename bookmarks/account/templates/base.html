@@ -20,17 +20,17 @@
 						<h6>Bookmarks</h6>
 					</nav>
 				</header>
-				<a {% if section == "dashboard" %}
+				<a href="{% url "dashboard" %}" {% if section == "dashboard" %}
 					class="primary"
 				{% endif %} >
 					<i>dashboard</i>
 					<span>My Dashboard</span>
 				</a>
-				<a {% if section == "images" %}
+				<a href="{% url "images:list" %}" {% if section == "images" %}
 				   class="primary"
 				   {% endif %} >
 					<i>image</i>
-					<span>Images</span>
+					Images
 				</a>
 				<a {% if section == "people" %}
 				   class="primary"
@@ -72,5 +72,14 @@
 				{% endblock %}
 		</div>
 	</main>
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+<script>
+	const csrftoken = Cookies.get('csrftoken');
+	document.addEventListener('DOMContentLoaded', (event) => {
+        {% block domready %}
+
+		{% endblock %}
+    })
+</script>
 </body>
 </html>
